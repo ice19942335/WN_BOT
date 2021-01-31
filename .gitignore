@@ -1,0 +1,11 @@
+**/**.dll
+**/**.pdb
+**/*.cache
+**/obj/**
+**/bin/**
+runtimes/**
+*.user
+*.PublishSettings
+publish.cmd
+packages/
+.vs/

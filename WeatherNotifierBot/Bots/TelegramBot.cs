@@ -16,12 +16,12 @@ namespace Microsoft.BotBuilderSamples.Bots
     public class TelegramBot : ActivityHandler
     {
         private readonly IUserLogic _userLogic;
+        private readonly INotificationLogic _weatherNotifierLogic;
         private TelegramContext _telegramContext;
 
-        public TelegramBot(IUserLogic userLogic, TelegramContext telegramContext)
+        public TelegramBot(IUserLogic userLogic)
         {
             _userLogic = userLogic;
-            _telegramContext = telegramContext;
         }
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
@@ -29,7 +29,9 @@ namespace Microsoft.BotBuilderSamples.Bots
             string command = turnContext.Activity.Text;
             List<string> commands = _telegramContext.TelegramCommands.Select(x => x.CommandName).ToList();
 
-            if(!commands.Contains(command))
+
+
+            if (!commands.Contains(command))
             {
                 await turnContext.SendActivityAsync(MessageFactory.Text($"Command: {command} does't exist. Please, check the command an try again."), cancellationToken);
                 return;
@@ -43,11 +45,13 @@ namespace Microsoft.BotBuilderSamples.Bots
 
             ITelegramCommand telegramCommand = commandFactory.FactoryMethod();
             await telegramCommand.GenerateResponse();
+
+            await turnContext.SendActivityAsync(MessageFactory.Text("Test", "Test"), cancellationToken);
         }
 
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
-            var welcomeText = "Hello and welcome!";
+            var welcomeText = "Hello and welcome! Please enter your city name.";
             foreach (var member in membersAdded)
             {
                 if (member.Id != turnContext.Activity.Recipient.Id)

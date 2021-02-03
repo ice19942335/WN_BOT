@@ -36,6 +36,9 @@ namespace Microsoft.BotBuilderSamples
 
             // Servcies
             services.AddScoped<IUserLogic, UserLogic>();
+            services.AddScoped<INotificationLogic, NotificationLogic>();
+            services.AddScoped<IJobLogic, JobLogic>();
+            services.AddScoped<IWeatherLogic, WeatherLogic>();
 
             // Create the Bot Framework Adapter with error handling enabled.
             services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();

@@ -14,6 +14,7 @@ using EasyShop.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using WeatherNotifierBot.Logic.Servcies.Interfaces;
 using WeatherNotifierBot.Logic.Servcies;
+using Hangfire;
 
 namespace Microsoft.BotBuilderSamples
 {
@@ -30,6 +31,10 @@ namespace Microsoft.BotBuilderSamples
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();
+
+            // Hangfire
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DevConnection")));
+            services.AddHangfireServer();
 
             // Telegram DB context
             services.AddDbContext<TelegramContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
@@ -52,6 +57,9 @@ namespace Microsoft.BotBuilderSamples
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // Hangfire
+                app.UseHangfireDashboard();
             }
 
             app.UseDefaultFiles()
@@ -64,7 +72,7 @@ namespace Microsoft.BotBuilderSamples
                     endpoints.MapControllers();
                 });
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
         }
     }
 }

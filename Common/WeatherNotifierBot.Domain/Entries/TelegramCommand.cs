@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WeatherNotifierBot.Domain.TelegramBot
+namespace WeatherNotifierBot.Domain.Entries
 {
     public class TelegramCommand
     {

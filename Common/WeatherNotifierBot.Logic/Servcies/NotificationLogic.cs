@@ -7,6 +7,9 @@ namespace WeatherNotifierBot.Logic.Servcies
 {
     public class NotificationLogic : INotificationLogic
     {
+        public NotificationLogic()
+        {
 
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using EasyShop.DAL.Context;
 using Microsoft.Bot.Schema;
 using System.Threading.Tasks;
-using WeatherNotifierBot.Domain.TelegramBot;
+using WeatherNotifierBot.Domain.Entries;
 using WeatherNotifierBot.Logic.Servcies.Interfaces;
 
 namespace WeatherNotifierBot.Logic.Servcies

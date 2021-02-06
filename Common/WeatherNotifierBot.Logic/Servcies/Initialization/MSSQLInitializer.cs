@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WeatherNotifierBot.Domain.TelegramBot;
+using WeatherNotifierBot.Domain.Entries;
 using WeatherNotifierBot.Enums;
 
 namespace WeatherNotifierBot.Logic.Servcies.Initialization

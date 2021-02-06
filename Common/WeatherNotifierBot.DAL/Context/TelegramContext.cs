@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WeatherNotifierBot.Domain.TelegramBot;
+using WeatherNotifierBot.Domain.Entries;
 
 namespace EasyShop.DAL.Context
 {

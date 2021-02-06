@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using WeatherNotifierBot.Domain.Base;
-using WeatherNotifierBot.Enums;
 
-namespace WeatherNotifierBot.Domain.TelegramBot
+namespace WeatherNotifierBot.Domain.Entries
 {
     /// <summary>
     /// Represent <see cref="User"/> entity in entire system. 

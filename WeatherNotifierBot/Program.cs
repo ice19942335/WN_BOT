@@ -22,21 +22,13 @@ namespace Microsoft.BotBuilderSamples
 
             using (var serviceScope = host.Services.CreateScope())
             {
-                IConfiguration congiration = serviceScope.ServiceProvider.GetRequiredService<IConfiguration>();
-
-                // Hangfire
-                var sqlStorage = new SqlServerStorage(congiration.GetConnectionString("DevConnection"));
-                var options = new BackgroundJobServerOptions { ServerName = "WNBotServer" };
-                JobStorage.Current = sqlStorage;
-
+                // Database context
                 TelegramContext telegramContext = serviceScope.ServiceProvider.GetRequiredService<TelegramContext>();
                 await telegramContext.Database.MigrateAsync();
 
-                MSSQLInitializer contextInitializer = new MSSQLInitializer(telegramContext);
+                // SQL Server default data initialization
+                SQLDataInitializer contextInitializer = new SQLDataInitializer(telegramContext);
                 await contextInitializer.InitializeAsync();
-
-                INotificationLogic notificationLogic = serviceScope.ServiceProvider.GetRequiredService<INotificationLogic>();
-                RecurringJob.AddOrUpdate(() => Console.WriteLine("Hello"), "*/1 * * * *");
             }
 
             await host.RunAsync();

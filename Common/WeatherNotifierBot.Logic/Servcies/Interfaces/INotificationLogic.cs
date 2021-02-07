@@ -14,6 +14,6 @@ namespace WeatherNotifierBot.Logic.Servcies.Interfaces
         /// Hourly notification. This method has to be runed every hour.
         /// Fetch the latest weather data, depending on that and user settings sends notifications.
         /// </summary>
-        Task HorlyNotification();
+        void HorlyNotification();
     }
 }

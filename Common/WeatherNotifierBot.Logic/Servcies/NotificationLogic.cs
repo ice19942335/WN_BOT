@@ -13,9 +13,9 @@ namespace WeatherNotifierBot.Logic.Servcies
 
         }
 
-        public Task HorlyNotification()
+        public void HorlyNotification()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Easy!", Environment.NewLine);
         }
     }
 }

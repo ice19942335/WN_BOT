@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using WeatherNotifierBot.Logic.Servcies.Interfaces;
 using WeatherNotifierBot.Logic.Servcies;
 using Hangfire;
+using WeatherNotifierBot.Domain.Cron;
 
 namespace Microsoft.BotBuilderSamples
 {
@@ -42,6 +43,7 @@ namespace Microsoft.BotBuilderSamples
             services.AddScoped<IUserLogic, UserLogic>();
             services.AddScoped<INotificationLogic, NotificationLogic>();
             services.AddScoped<IWeatherLogic, WeatherLogic>();
+            services.AddScoped<IHangFireJobInitializer, HangFireJobInitializer>();
 
             // Create the Bot Framework Adapter with error handling enabled.
             services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();
@@ -57,13 +59,14 @@ namespace Microsoft.BotBuilderSamples
             {
                 app.UseDeveloperExceptionPage();
 
-                // Hangfire
+                // Hangfire dashboard
                 app.UseHangfireDashboard();
 
             }
 
-            // Hangfire
+            // Hangfire server
             app.UseHangfireServer();
+            RecurringJob.AddOrUpdate<INotificationLogic>(x => x.HorlyNotification(), CronExpressions.EveryMinute);
 
             app.UseDefaultFiles()
                 .UseStaticFiles()

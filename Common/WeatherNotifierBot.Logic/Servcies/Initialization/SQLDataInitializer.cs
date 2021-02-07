@@ -11,7 +11,7 @@ namespace WeatherNotifierBot.Logic.Servcies.Initialization
     /// Initializing default data.
     /// Writing Masterdata into database.
     /// </summary>
-    public class MSSQLInitializer
+    public class SQLDataInitializer
     {
         private TelegramContext _telegramContext;
 
@@ -19,7 +19,7 @@ namespace WeatherNotifierBot.Logic.Servcies.Initialization
         /// Initializing default data.
         /// Writing Masterdata into database.
         /// </summary>
-        public MSSQLInitializer(TelegramContext telegramContext)
+        public SQLDataInitializer(TelegramContext telegramContext)
         {
             _telegramContext = telegramContext;
         }

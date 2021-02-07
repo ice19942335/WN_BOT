@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using WeatherNotifierBot.Logic.Servcies.Interfaces;
 
 namespace WeatherNotifierBot.Logic.Servcies
@@ -10,6 +11,11 @@ namespace WeatherNotifierBot.Logic.Servcies
         public NotificationLogic()
         {
 
+        }
+
+        public Task HorlyNotification()
+        {
+            throw new NotImplementedException();
         }
     }
 }

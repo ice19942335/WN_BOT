@@ -7,7 +7,6 @@ using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 using Microsoft.BotBuilderSamples.Bots;
 using Microsoft.Extensions.Hosting;
 using EasyShop.DAL.Context;
@@ -32,12 +31,12 @@ namespace Microsoft.BotBuilderSamples
         {
             services.AddControllers().AddNewtonsoftJson();
 
+            // Telegram DB context
+            services.AddDbContext<TelegramContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
             // Hangfire
             services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DevConnection")));
             services.AddHangfireServer();
-
-            // Telegram DB context
-            services.AddDbContext<TelegramContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
             // Servcies
             services.AddScoped<IUserLogic, UserLogic>();
@@ -60,7 +59,11 @@ namespace Microsoft.BotBuilderSamples
 
                 // Hangfire
                 app.UseHangfireDashboard();
+
             }
+
+            // Hangfire
+            app.UseHangfireServer();
 
             app.UseDefaultFiles()
                 .UseStaticFiles()

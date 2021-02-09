@@ -47,12 +47,28 @@ namespace WeatherNotifierBot.Logic.Servcies.Initialization
                 this.InitializeTelegramCommands();
             }
 
+            if (_telegramContext.UserStatuses.Any() == false)
+            {
+                this.InitializeUserStatuses();
+            }
+
             await SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Saves chandes in database.
+        /// </summary>
         private async Task SaveChangesAsync()
         {
             await _telegramContext.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Adds user statuses entries into database.
+        /// </summary>
+        private void InitializeUserStatuses()
+        {
+            _telegramContext.UserStatuses.AddRange(this.GetDefaultStatuses());
         }
 
         /// <summary>
@@ -84,15 +100,25 @@ namespace WeatherNotifierBot.Logic.Servcies.Initialization
         }
 
         /// <summary>
-        /// Returns list of notificationTypes
+        /// Returns list of notificationTypes.
         /// </summary>
-        /// <returns></returns>
         private List<UserNotificationType> GetDefaultNotificationsList()
         {
             return new List<UserNotificationType>
             {
                 new UserNotificationType() { Id = (long)UserNotificationTypeEnum.EVERY_MORNING, Label = nameof(UserNotificationTypeEnum.EVERY_MORNING) },
                 new UserNotificationType() { Id = (long)UserNotificationTypeEnum.WEATHER_BECOMES_BAD, Label = nameof(UserNotificationTypeEnum.WEATHER_BECOMES_BAD) }
+            };
+        }
+
+        /// <summary>
+        /// Returns list of user statuses.
+        /// </summary>
+        private List<UserStatus> GetDefaultStatuses()
+        {
+            return new List<UserStatus>
+            {
+                new UserStatus() { Id = (long)UserStatusEnum.HAS_TO_ENTER_CITY_NAME, Label = nameof(UserStatusEnum.HAS_TO_ENTER_CITY_NAME) },
             };
         }
     }

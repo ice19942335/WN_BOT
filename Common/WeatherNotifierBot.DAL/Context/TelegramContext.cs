@@ -16,6 +16,7 @@ namespace EasyShop.DAL.Context
         public DbSet<User> Users { get; set; }
         public DbSet<UserNotificationType> NotificationTypes { get; set; }
         public DbSet<TelegramCommand> TelegramCommands { get; set; }
+        public DbSet<UserStatus> UserStatuses { get; set; }
 
         /// <summary>
         /// EF Core fluent API 

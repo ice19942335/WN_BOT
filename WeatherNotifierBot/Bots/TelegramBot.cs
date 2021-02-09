@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EasyShop.DAL.Context;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
+using WeatherNotifierBot.Domain.Entries;
 using WeatherNotifierBot.Enums;
 using WeatherNotifierBot.Logic;
 using WeatherNotifierBot.Logic.Servcies.Interfaces;
@@ -19,50 +20,55 @@ namespace Microsoft.BotBuilderSamples.Bots
         private readonly INotificationLogic _weatherNotifierLogic;
         private TelegramContext _telegramContext;
 
-        public TelegramBot(IUserLogic userLogic)
+        public TelegramBot(IUserLogic userLogic, TelegramContext telegramContext)
         {
             _userLogic = userLogic;
+            _telegramContext = telegramContext;
         }
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
-            string command = turnContext.Activity.Text;
-            List<string> commands = _telegramContext.TelegramCommands.Select(x => x.CommandName).ToList();
+            //string command = turnContext.Activity.Text;
+            //List<string> commands = _telegramContext.TelegramCommands.Select(x => x.CommandName).ToList();
 
+            //if (!commands.Contains(command))
+            //{
+            //    return;
+            //}
 
+            //TelegramCommandFactory commandFactory = command switch
+            //{
+            //    nameof(TelegramCommandEnum.HELP) => new TelegramHelpCommandFactory(turnContext, cancellationToken),
+            //    nameof(TelegramCommandEnum.SET_CITY) => new TelegramSetCityCommandFactory(turnContext, cancellationToken)
+            //};
 
-            if (!commands.Contains(command))
-            {
-                await turnContext.SendActivityAsync(MessageFactory.Text($"Command: {command} does't exist. Please, check the command an try again."), cancellationToken);
-                return;
-            }
+            //ITelegramCommand telegramCommand = commandFactory.FactoryMethod();
+            //await telegramCommand.GenerateResponse();
 
-            TelegramCommandFactory commandFactory = command switch
-            {
-                nameof(TelegramCommandEnum.HELP) => new TelegramHelpCommandFactory(turnContext, cancellationToken),
-                nameof(TelegramCommandEnum.SET_CITY) => new TelegramSetCityCommandFactory(turnContext, cancellationToken)
-            };
-
-            ITelegramCommand telegramCommand = commandFactory.FactoryMethod();
-            await telegramCommand.GenerateResponse();
-
-            await turnContext.SendActivityAsync(MessageFactory.Text("Test", "Test"), cancellationToken);
+            //await turnContext.SendActivityAsync(MessageFactory.Text("Test", "Test"), cancellationToken);
         }
 
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
-            var welcomeText = "Hello and welcome! Please enter your city name.";
+            if (membersAdded is null)
+                return;
+
             foreach (var member in membersAdded)
             {
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
-                    //await turnContext.SendActivityAsync(MessageFactory.Text(welcomeText, welcomeText), cancellationToken);
-                    //await SendSuggestedActionsAsync(turnContext, cancellationToken);
-                    OperationResponse result = await _userLogic.AddNewUserAsync(member);
+                    var welcomeText = "Hello and welcome! Please enter your city name.";
+                    OperationResponse result;
+                    
+                    result = await _userLogic.AddNewUserAsync(member);
+                    
                     if (result.Success)
                     {
-                        await turnContext.SendActivityAsync(MessageFactory.Text(welcomeText, welcomeText), cancellationToken);
+                        result = await _userLogic.SetUserStatusAsync(member, nameof(UserStatusEnum.HAS_TO_ENTER_CITY_NAME));
                     }
+
+                    if (result.Success)
+                        await turnContext.SendActivityAsync(MessageFactory.Text(welcomeText, welcomeText), cancellationToken);
                 }
             }
         }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WeatherNotifierBot.DAL.Migrations
 {
     [DbContext(typeof(TelegramContext))]
-    [Migration("20210130213546_Init")]
+    [Migration("20210208194625_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace WeatherNotifierBot.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("WeatherNotifierBot.Domain.TelegramBot.TelegramCommand", b =>
+            modelBuilder.Entity("WeatherNotifierBot.Domain.Entries.TelegramCommand", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -40,7 +40,7 @@ namespace WeatherNotifierBot.DAL.Migrations
                     b.ToTable("TelegramCommands");
                 });
 
-            modelBuilder.Entity("WeatherNotifierBot.Domain.TelegramBot.User", b =>
+            modelBuilder.Entity("WeatherNotifierBot.Domain.Entries.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,14 +61,19 @@ namespace WeatherNotifierBot.DAL.Migrations
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("UserStatusId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NotificationTypeId");
 
+                    b.HasIndex("UserStatusId");
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WeatherNotifierBot.Domain.TelegramBot.UserNotificationType", b =>
+            modelBuilder.Entity("WeatherNotifierBot.Domain.Entries.UserNotificationType", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -81,13 +86,32 @@ namespace WeatherNotifierBot.DAL.Migrations
                     b.ToTable("NotificationTypes");
                 });
 
-            modelBuilder.Entity("WeatherNotifierBot.Domain.TelegramBot.User", b =>
+            modelBuilder.Entity("WeatherNotifierBot.Domain.Entries.UserStatus", b =>
                 {
-                    b.HasOne("WeatherNotifierBot.Domain.TelegramBot.UserNotificationType", "NotificationType")
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Label")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserStatuses");
+                });
+
+            modelBuilder.Entity("WeatherNotifierBot.Domain.Entries.User", b =>
+                {
+                    b.HasOne("WeatherNotifierBot.Domain.Entries.UserNotificationType", "NotificationType")
                         .WithMany()
                         .HasForeignKey("NotificationTypeId");
 
+                    b.HasOne("WeatherNotifierBot.Domain.Entries.UserStatus", "UserStatus")
+                        .WithMany()
+                        .HasForeignKey("UserStatusId");
+
                     b.Navigation("NotificationType");
+
+                    b.Navigation("UserStatus");
                 });
 #pragma warning restore 612, 618
         }

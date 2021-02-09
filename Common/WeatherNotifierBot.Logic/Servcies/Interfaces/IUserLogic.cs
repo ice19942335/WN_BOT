@@ -1,5 +1,8 @@
-﻿using Microsoft.Bot.Schema;
+﻿using Microsoft.Bot.Builder;
+using Microsoft.Bot.Schema;
 using System.Threading.Tasks;
+using WeatherNotifierBot.Domain.Entries;
+using WeatherNotifierBot.Enums;
 
 namespace WeatherNotifierBot.Logic.Servcies.Interfaces
 {
@@ -11,8 +14,25 @@ namespace WeatherNotifierBot.Logic.Servcies.Interfaces
         /// <summary>
         /// Adds a new user into database.
         /// </summary>
-        /// <param name="newUser"></param>
-        /// <returns><see cref="OperationResponse"/> true if successfull, false if failed.</returns>
-        Task<OperationResponse> AddNewUserAsync(ChannelAccount newUser);
+        /// <param name="newUser">Channel account.</param>
+        /// <returns><see cref="OperationResponse"/>True if successfull, False if failed.</returns>
+        Task<OperationResponse> AddNewUserAsync(ChannelAccount channelAccount);
+
+        /// <summary>
+        /// Sets user notification type.
+        /// </summary>
+        /// <param name="userNotificationType">User notification type.</param>
+        /// <returns><see cref="OperationResponse"/>True if successfull, False if failed.</returns>
+        Task<OperationResponse> SetUserNotificationTypeAsync(ChannelAccount user, UserNotificationType userNotificationType);
+
+        /// <summary>
+        /// Sets user status. 
+        /// Usecase: Setting user status of what we are expecting from user, for instance
+        /// we are expecting from user to enter city name, so we are setting user status UserStatusEnum.HAS_TO_ENTER_CITY_NAME
+        /// </summary>
+        /// <param name="channelAccount">Channel account.</param>
+        /// /// <param name="userStatus">User status.</param>
+        /// <returns><see cref="OperationResponse"/>True if successfull, False if failed.</returns>
+        Task<OperationResponse> SetUserStatusAsync(ChannelAccount channelAccount, string userStatusLabel);
     }
 }

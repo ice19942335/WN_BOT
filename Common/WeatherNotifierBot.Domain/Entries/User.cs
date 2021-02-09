@@ -33,5 +33,10 @@ namespace WeatherNotifierBot.Domain.Entries
         /// Notification type.
         /// </summary>
         public virtual UserNotificationType NotificationType { get; set; }
+
+        /// <summary>
+        /// User status.
+        /// </summary>
+        public virtual UserStatus UserStatus { get; set; }
     }
 }

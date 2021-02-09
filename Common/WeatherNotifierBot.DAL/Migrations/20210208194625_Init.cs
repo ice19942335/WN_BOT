@@ -33,6 +33,18 @@ namespace WeatherNotifierBot.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Label = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserStatuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -41,7 +53,8 @@ namespace WeatherNotifierBot.DAL.Migrations
                     Properties = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AadObjectId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NotificationTypeId = table.Column<long>(type: "bigint", nullable: true)
+                    NotificationTypeId = table.Column<long>(type: "bigint", nullable: true),
+                    UserStatusId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,12 +65,23 @@ namespace WeatherNotifierBot.DAL.Migrations
                         principalTable: "NotificationTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Users_UserStatuses_UserStatusId",
+                        column: x => x.UserStatusId,
+                        principalTable: "UserStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_NotificationTypeId",
                 table: "Users",
                 column: "NotificationTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_UserStatusId",
+                table: "Users",
+                column: "UserStatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -70,6 +94,9 @@ namespace WeatherNotifierBot.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "NotificationTypes");
+
+            migrationBuilder.DropTable(
+                name: "UserStatuses");
         }
     }
 }

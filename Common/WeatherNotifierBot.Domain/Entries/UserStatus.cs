@@ -3,11 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeatherNotifierBot.Domain.Entries
 {
-    /// <summary>
-    /// User notification type.
-    /// Used on HangFire notification job execution.
-    /// </summary>
-    public class UserNotificationType
+    public class UserStatus
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

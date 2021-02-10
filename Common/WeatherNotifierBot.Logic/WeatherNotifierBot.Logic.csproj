@@ -17,13 +17,13 @@
     <Compile Update="Telegram\CommandLogic\CommandAbstraction\TelegramCommandFactory.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Telegram\CommandLogic\CommandFactories\TelegramHelpCommandFactory.cs">
+    <Compile Update="Telegram\CommandLogic\CommandCreators\TelegramHelpCommandCreator.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Telegram\CommandLogic\CommandFactories\TelegramSetCityCommandFactory.cs">
+    <Compile Update="Telegram\CommandLogic\CommandCreators\TelegramSetCityCommandCreator.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Telegram\CommandLogic\Command\TelegramHelpCommandFactory.cs">
+    <Compile Update="Telegram\CommandLogic\Command\TelegramHelpCommand.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>

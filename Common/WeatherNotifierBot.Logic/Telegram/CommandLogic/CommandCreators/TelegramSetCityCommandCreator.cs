@@ -1,16 +1,18 @@
 ﻿using System.Threading;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
+using WeatherNotifierBot.Logic.Telegram.CommandLogic.Command;
 using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction;
 
-namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandFactories
+namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandCreators
 {
-    public class TelegramHelpCommandFactory : TelegramCommandFactory
+
+    public class TelegramSetCityCommandCreator : TelegramCommandFactory
     {
         private readonly ITurnContext<IMessageActivity> _turnContext;
         private readonly CancellationToken _cancellationToken;
 
-        public TelegramHelpCommandFactory(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
+        public TelegramSetCityCommandCreator(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
             _turnContext = turnContext;
             _cancellationToken = cancellationToken;
@@ -18,9 +20,9 @@ namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandFactories
 
         public override ITelegramCommandFactory FactoryMethod()
         {
-            return new Command.TelegramHelpCommandFactory(_turnContext, _cancellationToken)
+            return new TelegramSetCityCommand(_turnContext, _cancellationToken)
             {
-                Name = nameof(Command.TelegramHelpCommandFactory)
+                Name = nameof(TelegramSetCityCommand)
             };
         }
     }

@@ -118,7 +118,7 @@ namespace WeatherNotifierBot.Logic.Services.Initialization
         {
             return new List<UserStatus>
             {
-                new UserStatus() { Id = (long)UserStatusEnum.HAS_TO_ENTER_CITY_NAME, Label = nameof(UserStatusEnum.HAS_TO_ENTER_CITY_NAME) },
+                new UserStatus() { Id = (long)UserStatusEnum.ENTER_CITY_NAME, Label = nameof(UserStatusEnum.ENTER_CITY_NAME) },
             };
         }
     }

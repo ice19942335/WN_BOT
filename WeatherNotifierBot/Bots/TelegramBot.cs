@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -10,8 +11,9 @@ using WeatherNotifierBot.Enums;
 using WeatherNotifierBot.Logic;
 using WeatherNotifierBot.Logic.Services.Interfaces;
 using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction;
-using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandFactories;
+using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandCreators;
 using WeatherNotifierBot.Logic.Telegram.UserStatusLogic.UserStatusAbstraction;
+using WeatherNotifierBot.Logic.Telegram.UserStatusLogic.UserStatusCreators;
 
 namespace WeatherNotifierBot.Bots
 {
@@ -35,29 +37,39 @@ namespace WeatherNotifierBot.Bots
 
             if (!commands.Contains(text))
             {
-                UserStatusFactory userStatusFactory = null;
-
-                switch (text)
+                UserStatusFactory userStatusCreator = null;
+                User user = _userLogic.GetUserById(turnContext.Activity.From.Id);
+                switch (user.UserStatus.Label)
                 {
-                    case 
+                    case nameof(UserStatusEnum.ENTER_CITY_NAME):
+                        userStatusCreator = new UserStatusEnterCityNameCreator();
+                        break;
                 }
 
-                return;
+                if (userStatusCreator is null)
+                    throw new ArgumentNullException(nameof(userStatusCreator));
+
+                IUserStatusFactory userStatusFactory = userStatusCreator.FactoryMethod();
+                await userStatusFactory.SomeLogic();
             }
 
-            TelegramCommandFactory commandFactory = null;
+            TelegramCommandFactory commandCreator = null;
             switch (text)
             {
                 case nameof(TelegramCommandEnum.HELP):
-                    commandFactory = new TelegramHelpCommandFactory(turnContext, cancellationToken);
+                    commandCreator = new TelegramHelpCommandCreator(turnContext, cancellationToken);
                     break;
                 case nameof(TelegramCommandEnum.SET_CITY):
-                    commandFactory = new TelegramSetCityCommandFactory(turnContext, cancellationToken);
+                    commandCreator = new TelegramSetCityCommandCreator(turnContext, cancellationToken);
                     break;
             }
 
-            ITelegramCommandFactory telegramCommandFactory = commandFactory.FactoryMethod();
+            if (commandCreator is null)
+                throw new ArgumentNullException(nameof(commandCreator));
+
+            ITelegramCommandFactory telegramCommandFactory = commandCreator.FactoryMethod();
             await telegramCommandFactory.GenerateResponse();
+
 
             await turnContext.SendActivityAsync(MessageFactory.Text("Test", "Test"), cancellationToken);
         }
@@ -72,14 +84,10 @@ namespace WeatherNotifierBot.Bots
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
                     var welcomeText = "Hello and welcome! Please enter your city name.";
-                    OperationResponse result;
-                    
-                    result = await _userLogic.AddNewUserAsync(member);
-                    
+                    OperationResponse result = await _userLogic.AddNewUserAsync(member);
+
                     if (result.Success)
-                    {
-                        result = await _userLogic.SetUserStatusAsync(member, nameof(UserStatusEnum.HAS_TO_ENTER_CITY_NAME));
-                    }
+                        result = await _userLogic.SetUserStatusAsync(member, nameof(UserStatusEnum.ENTER_CITY_NAME));
 
                     if (result.Success)
                         await turnContext.SendActivityAsync(MessageFactory.Text(welcomeText, welcomeText), cancellationToken);

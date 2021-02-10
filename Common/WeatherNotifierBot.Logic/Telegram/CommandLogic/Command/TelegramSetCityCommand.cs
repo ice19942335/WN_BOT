@@ -6,12 +6,12 @@ using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction;
 
 namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.Command
 {
-    public class TelegramHelpCommandFactory : ITelegramCommandFactory
+    public class TelegramSetCityCommand : ITelegramCommandFactory
     {
         private readonly ITurnContext<IMessageActivity> _turnContext;
         private readonly CancellationToken _cancellationToken;
 
-        public TelegramHelpCommandFactory(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
+        public TelegramSetCityCommand(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
             _turnContext = turnContext;
             _cancellationToken = cancellationToken;
@@ -21,7 +21,7 @@ namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.Command
 
         public async Task GenerateResponse()
         {
-            await _turnContext.SendActivityAsync(MessageFactory.Text("This is a /Help command"), _cancellationToken);
+            await _turnContext.SendActivityAsync(MessageFactory.Text("This is a /SetCity command"), _cancellationToken);
         }
     }
 }

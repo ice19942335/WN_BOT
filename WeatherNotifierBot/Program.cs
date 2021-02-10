@@ -1,18 +1,13 @@
-using EasyShop.DAL.Context;
-using Hangfire;
-using Hangfire.SqlServer;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
-using WeatherNotifierBot.Logic.Servcies.Initialization;
-using WeatherNotifierBot.Logic.Servcies.Interfaces;
+using WeatherNotifierBot.DAL.Context;
+using WeatherNotifierBot.Logic.Servces.Initialization;
 
-namespace Microsoft.BotBuilderSamples
+namespace WeatherNotifierBot
 {
     public class Program
     {
@@ -27,7 +22,7 @@ namespace Microsoft.BotBuilderSamples
                 await telegramContext.Database.MigrateAsync();
 
                 // SQL Server default data initialization
-                SQLDataInitializer contextInitializer = new SQLDataInitializer(telegramContext);
+                SqlDataInitializer contextInitializer = new SqlDataInitializer(telegramContext);
                 await contextInitializer.InitializeAsync();
             }
 

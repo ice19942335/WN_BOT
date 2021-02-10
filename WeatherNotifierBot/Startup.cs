@@ -1,22 +1,22 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.BotBuilderSamples.Bots;
 using Microsoft.Extensions.Hosting;
-using EasyShop.DAL.Context;
-using Microsoft.EntityFrameworkCore;
-using WeatherNotifierBot.Logic.Servcies.Interfaces;
-using WeatherNotifierBot.Logic.Servcies;
-using Hangfire;
+using WeatherNotifierBot.Bots;
+using WeatherNotifierBot.DAL.Context;
 using WeatherNotifierBot.Domain.Cron;
+using WeatherNotifierBot.Logic.Servces;
+using WeatherNotifierBot.Logic.Servces.Interfaces;
 
-namespace Microsoft.BotBuilderSamples
+namespace WeatherNotifierBot
 {
     public class Startup
     {

@@ -1,4 +1,4 @@
-﻿namespace WeatherNotifierBot.Logic.Telegram.CommandAbstraction
+﻿namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction
 {
     public abstract class TelegramCommandFactory
     {

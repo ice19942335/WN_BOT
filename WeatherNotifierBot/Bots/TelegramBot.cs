@@ -2,17 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EasyShop.DAL.Context;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
-using WeatherNotifierBot.Domain.Entries;
+using WeatherNotifierBot.DAL.Context;
 using WeatherNotifierBot.Enums;
 using WeatherNotifierBot.Logic;
-using WeatherNotifierBot.Logic.Servcies.Interfaces;
-using WeatherNotifierBot.Logic.Telegram.CommandAbstraction;
-using WeatherNotifierBot.Logic.Telegram.CommandFactories;
+using WeatherNotifierBot.Logic.Servces.Interfaces;
+using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction;
+using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandFactories;
 
-namespace Microsoft.BotBuilderSamples.Bots
+namespace WeatherNotifierBot.Bots
 {
     public class TelegramBot : ActivityHandler
     {
@@ -20,32 +19,40 @@ namespace Microsoft.BotBuilderSamples.Bots
         private readonly INotificationLogic _weatherNotifierLogic;
         private TelegramContext _telegramContext;
 
-        public TelegramBot(IUserLogic userLogic, TelegramContext telegramContext)
+        public TelegramBot(IUserLogic userLogic, TelegramContext telegramContext, INotificationLogic weatherNotifierLogic)
         {
             _userLogic = userLogic;
             _telegramContext = telegramContext;
+            _weatherNotifierLogic = weatherNotifierLogic;
         }
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
-            //string command = turnContext.Activity.Text;
-            //List<string> commands = _telegramContext.TelegramCommands.Select(x => x.CommandName).ToList();
+            string command = turnContext.Activity.Text;
+            List<string> commands = _telegramContext.TelegramCommands.Select(x => x.CommandName).ToList();
 
-            //if (!commands.Contains(command))
-            //{
-            //    return;
-            //}
+            if (!commands.Contains(command))
+            {
 
-            //TelegramCommandFactory commandFactory = command switch
-            //{
-            //    nameof(TelegramCommandEnum.HELP) => new TelegramHelpCommandFactory(turnContext, cancellationToken),
-            //    nameof(TelegramCommandEnum.SET_CITY) => new TelegramSetCityCommandFactory(turnContext, cancellationToken)
-            //};
 
-            //ITelegramCommand telegramCommand = commandFactory.FactoryMethod();
-            //await telegramCommand.GenerateResponse();
+                return;
+            }
 
-            //await turnContext.SendActivityAsync(MessageFactory.Text("Test", "Test"), cancellationToken);
+            TelegramCommandFactory commandFactory = new TelegramHelpCommandFactory(turnContext, cancellationToken);
+            switch (command)
+            {
+                case nameof(TelegramCommandEnum.HELP):
+                    commandFactory = new TelegramHelpCommandFactory(turnContext, cancellationToken);
+                    break;
+                case nameof(TelegramCommandEnum.SET_CITY):
+                    commandFactory = new TelegramSetCityCommandFactory(turnContext, cancellationToken);
+                    break;
+            }
+
+            ITelegramCommand telegramCommand = commandFactory.FactoryMethod();
+            await telegramCommand.GenerateResponse();
+
+            await turnContext.SendActivityAsync(MessageFactory.Text("Test", "Test"), cancellationToken);
         }
 
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)

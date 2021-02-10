@@ -1,10 +1,8 @@
-﻿using Microsoft.Bot.Builder;
+﻿using System.Threading.Tasks;
 using Microsoft.Bot.Schema;
-using System.Threading.Tasks;
 using WeatherNotifierBot.Domain.Entries;
-using WeatherNotifierBot.Enums;
 
-namespace WeatherNotifierBot.Logic.Servcies.Interfaces
+namespace WeatherNotifierBot.Logic.Servces.Interfaces
 {
     /// <summary>
     /// Operations with <see cref="User"/>.

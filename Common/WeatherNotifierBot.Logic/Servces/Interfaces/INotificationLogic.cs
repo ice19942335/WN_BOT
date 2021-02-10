@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WeatherNotifierBot.Logic.Servcies.Interfaces
+﻿namespace WeatherNotifierBot.Logic.Servces.Interfaces
 {
     /// <summary>
     /// Represents jobs to be runed in Hangfire.

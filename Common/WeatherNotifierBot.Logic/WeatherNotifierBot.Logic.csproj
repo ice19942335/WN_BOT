@@ -14,22 +14,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Telegram\CommandAbstraction\TelegramCommandFactory.cs">
+    <Compile Update="Telegram\CommandLogic\CommandAbstraction\TelegramCommandFactory.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Telegram\CommandFactories\TelegramHelpCommandFactory.cs">
+    <Compile Update="Telegram\CommandLogic\CommandFactories\TelegramHelpCommandFactory.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Telegram\CommandFactories\TelegramSetCityCommandFactory.cs">
+    <Compile Update="Telegram\CommandLogic\CommandFactories\TelegramSetCityCommandFactory.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Telegram\Command\TelegramHelpCommand.cs">
+    <Compile Update="Telegram\CommandLogic\Command\TelegramHelpCommand.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="BackgroundJobs\" />
+    <Folder Include="Telegram\UserStatusLogic\UserStatusAbstraction\" />
+    <Folder Include="Telegram\UserStatusLogic\UserStatusFactories\" />
+    <Folder Include="Telegram\UserStatusLogic\UserStatus\" />
   </ItemGroup>
 
 </Project>

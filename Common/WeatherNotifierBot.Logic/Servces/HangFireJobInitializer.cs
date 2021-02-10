@@ -1,12 +1,8 @@
 ﻿using Hangfire;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using WeatherNotifierBot.Domain.Cron;
-using WeatherNotifierBot.Logic.Servcies.Interfaces;
+using WeatherNotifierBot.Logic.Servces.Interfaces;
 
-namespace WeatherNotifierBot.Logic.Servcies
+namespace WeatherNotifierBot.Logic.Servces
 {
     public class HangFireJobInitializer : IHangFireJobInitializer
     {

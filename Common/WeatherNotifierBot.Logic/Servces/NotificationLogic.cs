@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using WeatherNotifierBot.Logic.Servcies.Interfaces;
+using WeatherNotifierBot.Logic.Servces.Interfaces;
 
-namespace WeatherNotifierBot.Logic.Servcies
+namespace WeatherNotifierBot.Logic.Servces
 {
     public class NotificationLogic : INotificationLogic
     {

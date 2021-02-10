@@ -1,10 +1,10 @@
-﻿using Microsoft.Bot.Builder;
-using Microsoft.Bot.Schema;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using WeatherNotifierBot.Logic.Telegram.CommandAbstraction;
+using Microsoft.Bot.Builder;
+using Microsoft.Bot.Schema;
+using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction;
 
-namespace WeatherNotifierBot.Logic.Telegram.Command
+namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.Command
 {
     public class TelegramSetCityCommand : ITelegramCommand
     {

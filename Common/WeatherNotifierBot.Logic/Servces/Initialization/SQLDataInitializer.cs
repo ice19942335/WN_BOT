@@ -1,17 +1,17 @@
-﻿using EasyShop.DAL.Context;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WeatherNotifierBot.DAL.Context;
 using WeatherNotifierBot.Domain.Entries;
 using WeatherNotifierBot.Enums;
 
-namespace WeatherNotifierBot.Logic.Servcies.Initialization
+namespace WeatherNotifierBot.Logic.Servces.Initialization
 {
     /// <summary>
     /// Initializing default data.
-    /// Writing Masterdata into database.
+    /// Writing master-data into database.
     /// </summary>
-    public class SQLDataInitializer
+    public class SqlDataInitializer
     {
         private TelegramContext _telegramContext;
 
@@ -19,7 +19,7 @@ namespace WeatherNotifierBot.Logic.Servcies.Initialization
         /// Initializing default data.
         /// Writing Masterdata into database.
         /// </summary>
-        public SQLDataInitializer(TelegramContext telegramContext)
+        public SqlDataInitializer(TelegramContext telegramContext)
         {
             _telegramContext = telegramContext;
         }

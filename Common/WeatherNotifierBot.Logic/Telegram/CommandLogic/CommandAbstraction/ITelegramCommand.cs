@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace WeatherNotifierBot.Logic.Telegram.CommandAbstraction
+namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction
 {
     public interface ITelegramCommand
     {

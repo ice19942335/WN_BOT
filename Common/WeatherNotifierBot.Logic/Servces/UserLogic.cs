@@ -1,14 +1,12 @@
-﻿using EasyShop.DAL.Context;
-using Microsoft.Bot.Builder;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Bot.Schema;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
+using WeatherNotifierBot.DAL.Context;
 using WeatherNotifierBot.Domain.Entries;
-using WeatherNotifierBot.Enums;
-using WeatherNotifierBot.Logic.Servcies.Interfaces;
+using WeatherNotifierBot.Logic.Servces.Interfaces;
 
-namespace WeatherNotifierBot.Logic.Servcies
+namespace WeatherNotifierBot.Logic.Servces
 {
     /// <summary>
     /// Operations with <see cref="User"/>.

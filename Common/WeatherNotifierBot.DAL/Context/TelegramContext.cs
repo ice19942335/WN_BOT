@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WeatherNotifierBot.Domain.Entries;
 
-namespace EasyShop.DAL.Context
+namespace WeatherNotifierBot.DAL.Context
 {
     /// <summary>
     /// Telegram database context.

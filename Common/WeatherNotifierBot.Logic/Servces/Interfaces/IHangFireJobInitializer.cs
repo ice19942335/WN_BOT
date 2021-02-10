@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace WeatherNotifierBot.Logic.Servcies.Interfaces
+﻿namespace WeatherNotifierBot.Logic.Servces.Interfaces
 {
     /// <summary>
     /// Repreents HangFire job initialization methods.

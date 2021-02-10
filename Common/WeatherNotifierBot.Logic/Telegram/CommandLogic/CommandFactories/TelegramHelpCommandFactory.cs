@@ -1,10 +1,10 @@
-﻿using Microsoft.Bot.Builder;
+﻿using System.Threading;
+using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
-using System.Threading;
-using WeatherNotifierBot.Logic.Telegram.Command;
-using WeatherNotifierBot.Logic.Telegram.CommandAbstraction;
+using WeatherNotifierBot.Logic.Telegram.CommandLogic.Command;
+using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction;
 
-namespace WeatherNotifierBot.Logic.Telegram.CommandFactories
+namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandFactories
 {
     public class TelegramHelpCommandFactory : TelegramCommandFactory
     {

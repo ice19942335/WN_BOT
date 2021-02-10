@@ -2,6 +2,6 @@
 {
     public abstract class TelegramCommandFactory
     {
-        public abstract ITelegramCommand FactoryMethod();
+        public abstract ITelegramCommandFactory FactoryMethod();
     }
 }

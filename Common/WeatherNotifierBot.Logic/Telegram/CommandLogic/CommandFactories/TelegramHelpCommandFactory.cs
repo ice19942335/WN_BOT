@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
-using WeatherNotifierBot.Logic.Telegram.CommandLogic.Command;
 using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction;
 
 namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandFactories
@@ -17,11 +16,11 @@ namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandFactories
             _cancellationToken = cancellationToken;
         }
 
-        public override ITelegramCommand FactoryMethod()
+        public override ITelegramCommandFactory FactoryMethod()
         {
-            return new TelegramHelpCommand(_turnContext, _cancellationToken)
+            return new Command.TelegramHelpCommandFactory(_turnContext, _cancellationToken)
             {
-                Name = nameof(TelegramHelpCommand)
+                Name = nameof(Command.TelegramHelpCommandFactory)
             };
         }
     }

@@ -18,11 +18,11 @@ namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandFactories
             _cancellationToken = cancellationToken;
         }
 
-        public override ITelegramCommand FactoryMethod()
+        public override ITelegramCommandFactory FactoryMethod()
         {
-            return new TelegramSetCityCommand(_turnContext, _cancellationToken)
+            return new Command.TelegramSetCityCommandFactory(_turnContext, _cancellationToken)
             {
-                Name = nameof(TelegramSetCityCommand)
+                Name = nameof(Command.TelegramSetCityCommandFactory)
             };
         }
     }

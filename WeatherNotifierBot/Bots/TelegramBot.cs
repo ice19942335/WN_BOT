@@ -49,8 +49,8 @@ namespace WeatherNotifierBot.Bots
                     break;
             }
 
-            ITelegramCommand telegramCommand = commandFactory.FactoryMethod();
-            await telegramCommand.GenerateResponse();
+            ITelegramCommandFactory telegramCommandFactory = commandFactory.FactoryMethod();
+            await telegramCommandFactory.GenerateResponse();
 
             await turnContext.SendActivityAsync(MessageFactory.Text("Test", "Test"), cancellationToken);
         }

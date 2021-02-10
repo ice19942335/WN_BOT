@@ -23,14 +23,13 @@
     <Compile Update="Telegram\CommandLogic\CommandFactories\TelegramSetCityCommandFactory.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Telegram\CommandLogic\Command\TelegramHelpCommand.cs">
+    <Compile Update="Telegram\CommandLogic\Command\TelegramHelpCommandFactory.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="BackgroundJobs\" />
-    <Folder Include="Telegram\UserStatusLogic\UserStatusAbstraction\" />
     <Folder Include="Telegram\UserStatusLogic\UserStatusFactories\" />
     <Folder Include="Telegram\UserStatusLogic\UserStatus\" />
   </ItemGroup>

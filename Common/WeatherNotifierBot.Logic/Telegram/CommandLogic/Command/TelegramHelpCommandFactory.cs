@@ -6,12 +6,12 @@ using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction;
 
 namespace WeatherNotifierBot.Logic.Telegram.CommandLogic.Command
 {
-    public class TelegramHelpCommand : ITelegramCommand
+    public class TelegramHelpCommandFactory : ITelegramCommandFactory
     {
         private readonly ITurnContext<IMessageActivity> _turnContext;
         private readonly CancellationToken _cancellationToken;
 
-        public TelegramHelpCommand(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
+        public TelegramHelpCommandFactory(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
             _turnContext = turnContext;
             _cancellationToken = cancellationToken;

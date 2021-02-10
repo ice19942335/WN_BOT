@@ -13,8 +13,8 @@ using Microsoft.Extensions.Hosting;
 using WeatherNotifierBot.Bots;
 using WeatherNotifierBot.DAL.Context;
 using WeatherNotifierBot.Domain.Cron;
-using WeatherNotifierBot.Logic.Servces;
-using WeatherNotifierBot.Logic.Servces.Interfaces;
+using WeatherNotifierBot.Logic.Services;
+using WeatherNotifierBot.Logic.Services.Interfaces;
 
 namespace WeatherNotifierBot
 {

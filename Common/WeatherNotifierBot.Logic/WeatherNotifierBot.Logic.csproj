@@ -30,8 +30,6 @@
 
   <ItemGroup>
     <Folder Include="BackgroundJobs\" />
-    <Folder Include="Telegram\UserStatusLogic\UserStatusFactories\" />
-    <Folder Include="Telegram\UserStatusLogic\UserStatus\" />
   </ItemGroup>
 
 </Project>

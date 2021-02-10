@@ -1,4 +1,4 @@
-﻿namespace WeatherNotifierBot.Logic.Servces.Interfaces
+﻿namespace WeatherNotifierBot.Logic.Services.Interfaces
 {
     /// <summary>
     /// Repreents HangFire job initialization methods.

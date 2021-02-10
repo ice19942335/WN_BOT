@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WeatherNotifierBot.DAL.Context;
-using WeatherNotifierBot.Logic.Servces.Initialization;
+using WeatherNotifierBot.Logic.Services.Initialization;
 
 namespace WeatherNotifierBot
 {

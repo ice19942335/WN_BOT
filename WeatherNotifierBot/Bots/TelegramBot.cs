@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
 using WeatherNotifierBot.DAL.Context;
+using WeatherNotifierBot.Domain.Entries;
 using WeatherNotifierBot.Enums;
 using WeatherNotifierBot.Logic;
-using WeatherNotifierBot.Logic.Servces.Interfaces;
+using WeatherNotifierBot.Logic.Services.Interfaces;
 using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandAbstraction;
 using WeatherNotifierBot.Logic.Telegram.CommandLogic.CommandFactories;
+using WeatherNotifierBot.Logic.Telegram.UserStatusLogic.UserStatusAbstraction;
 
 namespace WeatherNotifierBot.Bots
 {
@@ -17,7 +19,7 @@ namespace WeatherNotifierBot.Bots
     {
         private readonly IUserLogic _userLogic;
         private readonly INotificationLogic _weatherNotifierLogic;
-        private TelegramContext _telegramContext;
+        private readonly TelegramContext _telegramContext;
 
         public TelegramBot(IUserLogic userLogic, TelegramContext telegramContext, INotificationLogic weatherNotifierLogic)
         {
@@ -28,18 +30,23 @@ namespace WeatherNotifierBot.Bots
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
-            string command = turnContext.Activity.Text;
+            string text = turnContext.Activity.Text;
             List<string> commands = _telegramContext.TelegramCommands.Select(x => x.CommandName).ToList();
 
-            if (!commands.Contains(command))
+            if (!commands.Contains(text))
             {
+                UserStatusFactory userStatusFactory = null;
 
+                switch (text)
+                {
+                    case 
+                }
 
                 return;
             }
 
-            TelegramCommandFactory commandFactory = new TelegramHelpCommandFactory(turnContext, cancellationToken);
-            switch (command)
+            TelegramCommandFactory commandFactory = null;
+            switch (text)
             {
                 case nameof(TelegramCommandEnum.HELP):
                     commandFactory = new TelegramHelpCommandFactory(turnContext, cancellationToken);

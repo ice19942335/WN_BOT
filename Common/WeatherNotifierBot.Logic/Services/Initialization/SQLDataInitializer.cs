@@ -5,7 +5,7 @@ using WeatherNotifierBot.DAL.Context;
 using WeatherNotifierBot.Domain.Entries;
 using WeatherNotifierBot.Enums;
 
-namespace WeatherNotifierBot.Logic.Servces.Initialization
+namespace WeatherNotifierBot.Logic.Services.Initialization
 {
     /// <summary>
     /// Initializing default data.
